@@ -40,4 +40,16 @@ class Thread extends Model
     {
         return collect(preg_split('#[\r\n]+#', $this->content));
     }
+
+    /**
+     * @return string
+     */
+    public function getUrlAttribute(): string
+    {
+        return route('thread.view', [
+            'board'     => $this->board,
+            'thread'    => $this,
+        ]);
+    }
+
 }

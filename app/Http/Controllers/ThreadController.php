@@ -21,12 +21,11 @@ class ThreadController extends Controller
         ]);
     }
 
-
-    function getFieldNamesToUpdate(): array
+    public function view(Board $board, Thread $thread)
     {
-        return [
-            'field1',
-            'antotherField',
-        ];
+        return view('threads.view', [
+            'thread' => $thread,
+        ]);
     }
+
 }

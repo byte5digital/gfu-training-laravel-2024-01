@@ -19,3 +19,6 @@ Route::get('/', [IndexController::class, 'index']);
 
 Route::get('/{board}', [ThreadController::class, 'index'])
     ->name('board.index');
+
+Route::get('/{board}/{thread}', [ThreadController::class, 'view'])
+    ->name('thread.view');
