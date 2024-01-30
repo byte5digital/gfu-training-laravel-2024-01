@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ThreadController;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,6 +17,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [IndexController::class, 'index']);
+
+Route::get('/welcome', function (Request $request) {
+    return view('welcome');
+})->name('welcome');
 
 Route::get('/{board}', [ThreadController::class, 'index'])
     ->name('board.index');
