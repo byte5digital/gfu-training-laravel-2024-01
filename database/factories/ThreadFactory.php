@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Board;
 use App\Models\Thread;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends Factory<Thread>
@@ -18,9 +19,12 @@ class ThreadFactory extends Factory
      */
     public function definition(): array
     {
+        $title = fake()->words(fake()->numberBetween(3, 5), true);
+
         return [
             'board_id'      => Board::inRandomOrder()->first()->getKey(),
-            'title'         => fake()->words(fake()->numberBetween(3, 5), true),
+            'title'         => $title,
+            'slug'          => Str::slug($title),
             'content'       => fake()->paragraphs(fake()->numberBetween(3, 7), true),
             'deleted_at'    => fake()->randomElement([true, false]) ? now() : null,
         ];

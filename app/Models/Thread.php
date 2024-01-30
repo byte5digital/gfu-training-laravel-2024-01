@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\HasSlug;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -11,7 +12,10 @@ use Illuminate\Support\Collection;
 class Thread extends Model
 {
     use HasFactory;
+    use HasSlug;
     use SoftDeletes;
+
+    protected string $generateSlugsFrom = 'title';
 
     /**
      * @return BelongsTo

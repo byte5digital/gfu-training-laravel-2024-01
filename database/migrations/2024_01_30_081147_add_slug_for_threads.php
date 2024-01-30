@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('board_groups', function (Blueprint $table) {
-            $table->id();
-            $table->string('name', 191);
-            $table->string('slug', 191);
-            $table->softDeletes();
-            $table->timestamps();
+        Schema::table('threads', function (Blueprint $table) {
+            $table->string('slug', 191)
+                ->default('')
+                ->after('title');
         });
     }
 
@@ -25,6 +23,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('board_groups');
+        Schema::table('threads', function (Blueprint $table) {
+            $table->dropColumn('slug');
+        });
     }
 };

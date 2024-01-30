@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('board_group_id');
             $table->string('name', 191);
+            $table->string('slug', 191);
             $table->softDeletes();
             $table->timestamps();
 

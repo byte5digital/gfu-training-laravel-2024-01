@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ThreadController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,4 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [ThreadController::class, 'index']);
+Route::get('/', [IndexController::class, 'index']);
+
+Route::get('/{board}', [ThreadController::class, 'index'])
+    ->name('board.index');
