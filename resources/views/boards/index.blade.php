@@ -11,7 +11,7 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
 
                     @auth()
-                        <a href="{{ route('board.thread.create', ['board' => $board]) }}">new Thread</a>
+                        <x-link-button href="{{ route('board.thread.create', ['board' => $board]) }}">{{ __('new Thread') }}</x-link-button>
                     @else
                         <x-alert>Bitte anmelden um neue Threads zu erstellen.</x-alert>
                     @endauth

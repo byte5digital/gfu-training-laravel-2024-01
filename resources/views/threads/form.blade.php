@@ -13,19 +13,19 @@
                     <form method="POST" action="{{ route('board.thread.insert', ['board' => $board]) }}">
                         {{ csrf_field() }}
 
-                        <label for="title">Titel</label>:
-                        <input type="text" name="title" id="title" value="{{ $thread->title ?? '' }}"><br />
-                        @error('title')
-                            <div class="error">{{ $message }}</div>
-                        @enderror
+                        <div>
+                            <x-input-label>Titel</x-input-label>
+                            <x-text-input name="title" value="{{ old('title', $thread->title ?? '') }}" class="w-full"></x-text-input>
+                            <x-input-error :messages="$errors->get('title')" class="mt-2" />
+                        </div>
 
-                        <label for="content">Content</label>:
-                        <textarea name="content" id="content">{{ $thread->content ?? '' }}</textarea><br />
-                        @error('content')
-                            <div class="error">{{ $message }}</div>
-                        @enderror
+                        <div>
+                            <x-input-label>Content</x-input-label>
+                            <x-textarea wire:model="content" id="content" name="content">{{ old('content') }}</x-textarea>
+                            <x-input-error :messages="$errors->get('content')" class="mt-2" />
+                        </div>
 
-                        <input type="submit" name="submit" value="Thread {{ isset($thread) ? 'aktualisieren' : 'erstellen' }}">
+                        <x-primary-button>Thread {{ isset($thread) ? 'aktualisieren' : 'erstellen' }}</x-primary-button>
                     </form>
 
                 </div>
