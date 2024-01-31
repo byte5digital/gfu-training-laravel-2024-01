@@ -24,13 +24,13 @@ class CreateThreadRequest extends FormRequest
     {
         return [
             'title' => [
-                'string',
                 'required',
+                'string',
                 'between:10,191',
             ],
             'content' => [
-                'string',
                 'required',
+                'string',
                 'min:100',
             ],
         ];
