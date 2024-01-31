@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\ThreadController;
 use Illuminate\Support\Facades\Route;
 
@@ -46,6 +47,9 @@ Route::middleware('auth')->group(function() {
 
     Route::get('/{board}/{thread}/edit', [ThreadController::class, 'edit'])
         ->name('board.thread.edit');
+
+    Route::post('/{board}/{thread}/post/create', [PostController::class, 'insert'])
+        ->name('board.thread.post.insert');
 
 });
 

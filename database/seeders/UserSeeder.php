@@ -14,7 +14,6 @@ class UserSeeder extends Seeder
     {
         User::factory()
             ->count(50)
-            ->hasThreads(fake()->numberBetween(0, 100))
             ->create();
     }
 }

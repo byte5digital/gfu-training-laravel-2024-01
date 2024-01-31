@@ -13,7 +13,7 @@
                     @auth()
                         <a href="{{ route('board.thread.create', ['board' => $board]) }}">new Thread</a>
                     @else
-                        <div>Bitte anmelden um neue Threads zu erstellen.</div>
+                        <x-alert>Bitte anmelden um neue Threads zu erstellen.</x-alert>
                     @endauth
 
                     @include('threads.list', [

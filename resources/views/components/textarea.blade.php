@@ -1,0 +1,1 @@
+<textarea {!! $attributes->merge(['id' => 'comment', 'rows' => 4, 'class' => 'w-full p-8 text-sm text-gray-900 bg-white rounded-lg border border-gray-200 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400']) !!}>{{ $slot }}</textarea>

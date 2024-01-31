@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Board;
 use App\Models\Thread;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -23,6 +24,7 @@ class ThreadFactory extends Factory
 
         return [
             'board_id'      => Board::inRandomOrder()->first()->getKey(),
+            'user_id'       => User::inRandomOrder()->first()->getKey(),
             'title'         => $title,
             'slug'          => Str::slug($title),
             'content'       => fake()->paragraphs(fake()->numberBetween(3, 7), true),

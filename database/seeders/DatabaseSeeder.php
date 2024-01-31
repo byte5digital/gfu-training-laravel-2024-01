@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             BoardGroupSeeder::class,
             UserSeeder::class,
+            ThreadSeeder::class,
         ]);
     }
 }
