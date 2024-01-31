@@ -53,7 +53,7 @@ class ThreadController extends Controller
 
         $thread->board()->associate($board);
 
-        $thread->user()->associate(Auth::user() ?? 1);
+        $thread->user()->associate(Auth::user());
 
         $thread->save();
 

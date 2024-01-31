@@ -36,12 +36,17 @@ Route::get('/{board}', [ThreadController::class, 'index'])
 Route::get('/{board}/{thread}', [ThreadController::class, 'view'])
     ->name('board.thread.view');
 
-Route::get('/{board}/thread/create', [ThreadController::class, 'create'])
-    ->name('board.thread.create');
+Route::middleware('auth')->group(function() {
 
-Route::post('/{board}/thread/insert', [ThreadController::class, 'insert'])
-    ->name('board.thread.insert');
+    Route::get('/{board}/thread/create', [ThreadController::class, 'create'])
+        ->name('board.thread.create');
 
-Route::get('/{board}/{thread}/edit', [ThreadController::class, 'edit'])
-    ->name('board.thread.edit');
+    Route::post('/{board}/thread/insert', [ThreadController::class, 'insert'])
+        ->name('board.thread.insert');
+
+    Route::get('/{board}/{thread}/edit', [ThreadController::class, 'edit'])
+        ->name('board.thread.edit');
+
+});
+
 
