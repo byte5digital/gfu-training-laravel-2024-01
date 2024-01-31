@@ -15,7 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [IndexController::class, 'index']);
+Route::get('/', [IndexController::class, 'index'])
+    ->name('index');
 
 Route::view('/welcome', 'welcome');
 
@@ -38,9 +39,9 @@ Route::get('/{board}/{thread}', [ThreadController::class, 'view'])
 Route::get('/{board}/thread/create', [ThreadController::class, 'create'])
     ->name('board.thread.create');
 
-Route::post('/{board}/thread/save', [ThreadController::class, 'save'])
-    ->name('board.thread.save');
+Route::post('/{board}/thread/insert', [ThreadController::class, 'insert'])
+    ->name('board.thread.insert');
 
 Route::get('/{board}/{thread}/edit', [ThreadController::class, 'edit'])
-    ->name('board.thread.view');
+    ->name('board.thread.edit');
 

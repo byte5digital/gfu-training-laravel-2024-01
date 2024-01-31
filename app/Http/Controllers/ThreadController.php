@@ -41,6 +41,11 @@ class ThreadController extends Controller
         return $this->form($board);
     }
 
+    public function edit(Board $board, Thread $thread): Factory|View
+    {
+        return $this->form($board)
+            ->with('thread', $thread);
+    }
 
     public function insert(Board $board, CreateThreadRequest $request)
     {
