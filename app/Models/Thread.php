@@ -25,6 +25,11 @@ class Thread extends Model
         return $this->belongsTo(Board::class);
     }
 
+    protected $fillable = [
+        'title',
+        'content',
+    ];
+
     /**
      * @return BelongsTo
      */
@@ -46,7 +51,7 @@ class Thread extends Model
      */
     public function getUrlAttribute(): string
     {
-        return route('thread.view', [
+        return route('board.thread.view', [
             'board'     => $this->board,
             'thread'    => $this,
         ]);

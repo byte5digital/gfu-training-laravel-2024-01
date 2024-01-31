@@ -12,7 +12,7 @@ trait HasSlug
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
-            ->generateSlugsFrom($thgis->generateSlugsFrom ?? 'name')
+            ->generateSlugsFrom($this->generateSlugsFrom ?? 'name')
             ->saveSlugsTo('slug');
     }
 
