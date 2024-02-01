@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Api\v1;
 
 use App\Http\Requests\Traits\IsThreadRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateThreadRequest extends FormRequest
+class StoreThreadRequest extends FormRequest
 {
     use IsThreadRequest;
 
@@ -14,7 +14,7 @@ class CreateThreadRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return auth()->check();
+        return true;
     }
 
 }

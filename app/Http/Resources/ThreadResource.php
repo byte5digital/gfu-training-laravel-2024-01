@@ -20,8 +20,8 @@ class ThreadResource extends JsonResource
             'title'         => $this->title,
             'slug'          => $this->slug,
             'content'       => $this->content,
-            'created_at'    => $this->created_at->format('Y-m-d H:i:s'),
-            'updated_at'    => $this->updated_at->format('Y-m-d H:i:s'),
+            'created_at'    => $this->created_at?->format('Y-m-d H:i:s'),
+            'updated_at'    => $this->updated_at?->format('Y-m-d H:i:s'),
             'user'          => new UserResource(User::find($this->user_id)),
             'posts'         => PostResource::collection($this->resource->posts),
         ];

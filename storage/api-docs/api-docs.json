@@ -1,0 +1,62 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Test API bei GFU",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/v1/threads": {
+            "get": {
+                "summary": "Display a listing of the resource.",
+                "operationId": "3aed7360d8fc05af1c1a780a805f8ec4",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": null,
+                        "description": "Page number to return.",
+                        "example": 3
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Returns paginated list of Threads"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Creates an new Thread and returns it.",
+                "description": "Store a newly created resource in storage.",
+                "operationId": "2f4269cede2e11be4bdd45f57734207c",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "title",
+                                    "content"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "Hans wurst isst ein Ei!"
+                                    },
+                                    "content": {
+                                        "type": "string",
+                                        "example": "Lorem ipsum dolor sit amet."
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Returns created Thread."
+                    }
+                }
+            }
+        }
+    }
+}
