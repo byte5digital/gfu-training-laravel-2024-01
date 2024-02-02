@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Requests\Api\v1\StoreThreadRequest;
 use App\Http\Resources\ThreadResource;
+use App\Models\Board;
 use App\Models\Thread;
+use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use OpenApi\Attributes as OA;
@@ -46,7 +48,7 @@ class ThreadController extends Controller
         requestBody: new OA\RequestBody(
             required: true,
             content: new OA\MediaType(
-                mediaType: 'application/x-www-form-urlencode',
+                mediaType: 'application/json',
                 schema: new OA\Schema(
                     required: ['title', 'content'],
                     properties: [
@@ -60,7 +62,11 @@ class ThreadController extends Controller
                             type: 'string',
                             example: 'Lorem ipsum dolor sit amet.',
                         ),
-
+                        new OA\Property(
+                            property: 'board_id',
+                            type: 'integer',
+                            example: 4,
+                        ),
                     ],
                 ),
             ),
@@ -69,13 +75,23 @@ class ThreadController extends Controller
             new OA\Response(
                 response: '200',
                 description: 'Returns created Thread.',
+                content: new OA\JsonContent(),
+            ),
+            new OA\Response(
+                response: '500',
+                description: 'Server Error.',
+                content: new OA\JsonContent(),
             ),
         ],
     )]
     public function store(StoreThreadRequest $request): JsonResponse
     {
-        #dd($request->input());
         $thread = new Thread($request->validated());
+        $thread->user()->associate(auth()->user() ?? 1);
+        $thread->board()->associate(Board::find($request->validated('board_id')));
+
+        $thread->save();
+
         return (new ThreadResource($thread))
             ->response();
     }

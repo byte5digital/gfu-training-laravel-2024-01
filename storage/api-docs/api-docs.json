@@ -44,6 +44,10 @@
                                     "content": {
                                         "type": "string",
                                         "example": "Lorem ipsum dolor sit amet."
+                                    },
+                                    "board_id": {
+                                        "type": "integer",
+                                        "example": 4
                                     }
                                 },
                                 "type": "object"
@@ -53,7 +57,20 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Returns created Thread."
+                        "description": "Returns created Thread.",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server Error.",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
                     }
                 }
             }
