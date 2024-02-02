@@ -18,6 +18,7 @@ class ThreadController extends Controller
      */
     #[OA\Get(
         path: '/api/v1/threads',
+        security: ['bearerAuth'],
         parameters: [
             new OA\Parameter(
                 name: 'page',
@@ -29,6 +30,7 @@ class ThreadController extends Controller
             new OA\Response(
                 response: '200',
                 description: 'Returns paginated list of Threads',
+                content: new OA\JsonContent(),
             ),
         ],
     )]
@@ -45,30 +47,28 @@ class ThreadController extends Controller
     #[OA\Post(
         path: '/api/v1/threads',
         summary: 'Creates an new Thread and returns it.',
+        security: ['bearerAuth'],
         requestBody: new OA\RequestBody(
             required: true,
-            content: new OA\MediaType(
-                mediaType: 'application/json',
-                schema: new OA\Schema(
-                    required: ['title', 'content'],
-                    properties: [
-                        new OA\Property(
-                            property: 'title',
-                            type: 'string',
-                            example: 'Hans wurst isst ein Ei!',
-                        ),
-                        new OA\Property(
-                            property: 'content',
-                            type: 'string',
-                            example: 'Lorem ipsum dolor sit amet.',
-                        ),
-                        new OA\Property(
-                            property: 'board_id',
-                            type: 'integer',
-                            example: 4,
-                        ),
-                    ],
-                ),
+            content: new OA\JsonContent(
+                required: ['title', 'content'],
+                properties: [
+                    new OA\Property(
+                        property: 'title',
+                        type: 'string',
+                        example: 'Hans wurst isst ein Ei!',
+                    ),
+                    new OA\Property(
+                        property: 'content',
+                        type: 'string',
+                        example: 'Lorem ipsum dolor sit amet.',
+                    ),
+                    new OA\Property(
+                        property: 'board_id',
+                        type: 'integer',
+                        example: 4,
+                    ),
+                ],
             ),
         ),
         responses: [

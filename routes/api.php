@@ -32,7 +32,7 @@ Route::prefix('v1')
         Route::post('auth', [AuthController::class, 'create'])
             ->name('auth');
 
-        Route::middleware('auth.sanctum')->group(function() {
+        Route::middleware('auth.api')->group(function() {
 
             Route::apiResource('threads', ThreadController::class);
 

@@ -52,7 +52,12 @@
                     "200": {
                         "description": "Returns paginated list of Threads"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "scalar": "bearerAuth"
+                    }
+                ]
             },
             "post": {
                 "summary": "Creates an new Thread and returns it.",
@@ -103,7 +108,20 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "scalar": "bearerAuth"
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer"
             }
         }
     }
