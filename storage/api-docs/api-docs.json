@@ -5,6 +5,37 @@
         "version": "1.0.0"
     },
     "paths": {
+        "/api/v1/auth": {
+            "post": {
+                "operationId": "24cdc791be179c4d51ec455dacc0072b",
+                "requestBody": {
+                    "description": "The Token request",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "john@doe.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "YourSecret"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "The created PersonalAccessToken."
+                    }
+                }
+            }
+        },
         "/api/v1/threads": {
             "get": {
                 "summary": "Display a listing of the resource.",
