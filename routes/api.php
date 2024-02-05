@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\ThreadController;
+use App\Http\Controllers\Api\V1\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,13 +17,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-#Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-#    return $request->user();
-#});
-
 Route::prefix('v1')
     ->name('v1.')
     ->group(function() {
+
+        Route::post('auth', [AuthController::class, 'create'])
+            ->name('auth');
 
         Route::get('user', function (Request $request) {
 
@@ -30,7 +31,12 @@ Route::prefix('v1')
             return $request->user();
         })->name('user');
 
-        Route::apiResource('threads', ThreadController::class);
+        Route::middleware('auth:sanctum')
+            ->group(function() {
 
+                Route::apiResource('users', UserController::class);
+                Route::apiResource('threads', ThreadController::class);
+
+            });
 
     });

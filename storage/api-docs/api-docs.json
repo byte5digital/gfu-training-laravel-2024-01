@@ -1,13 +1,55 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "Test API bei GFU",
+        "title": "Test API",
+        "description": "API of the test project for the Laravel workshop at the GFU.",
+        "contact": {
+            "name": "Timo Paul",
+            "email": "tpaul@byte5.de"
+        },
         "version": "1.0.0"
     },
+    "servers": [
+        {
+            "url": "http://localhost:80",
+            "description": "local server"
+        }
+    ],
     "paths": {
+        "/api/v1/auth": {
+            "post": {
+                "operationId": "24cdc791be179c4d51ec455dacc0072b",
+                "requestBody": {
+                    "description": "The Token Request",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "your@email.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "YOUR_PASSWORD"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "The created PersonalAccessToken"
+                    }
+                }
+            }
+        },
         "/api/v1/threads": {
             "get": {
-                "summary": "Display a listing of the resource.",
+                "summary": "Display a listing of Threads.",
                 "operationId": "3aed7360d8fc05af1c1a780a805f8ec4",
                 "parameters": [
                     {
@@ -19,9 +61,43 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Returns paginated list of Threads"
+                        "description": "Returns paginated list of Threads",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             },
             "post": {
                 "summary": "Creates an new Thread and returns it.",
@@ -53,9 +129,228 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Returns created Thread."
+                        "description": "Returns created Thread.",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/users": {
+            "get": {
+                "summary": "Returns a listing of users.",
+                "description": "Display a listing of users.",
+                "operationId": "12e989554c281d650dff75443acabf54",
+                "responses": {
+                    "200": {
+                        "description": "Returns List of `User`s",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/schemas/Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "summary": "Store a newly created resource in storage.",
+                "operationId": "64da9b5a20fa4f20e947ed61b2bbb6da",
+                "requestBody": {
+                    "description": "The Token Request",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "your@email.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "YOUR_PASSWORD"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "The created `User`"
                     }
                 }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Error": {
+                "required": [
+                    "success",
+                    "message"
+                ],
+                "properties": {
+                    "success": {
+                        "type": "boolean",
+                        "example": false
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "You git an error!"
+                    }
+                },
+                "type": "object"
+            },
+            "Post": {
+                "description": "Represents an Post ",
+                "properties": {
+                    "content": {
+                        "type": "string",
+                        "example": "Lorem ipsum dolor sit amet."
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "1972-01-01 12:34:56"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "1972-01-01 12:34:56"
+                    },
+                    "user": {
+                        "$ref": "#/components/schemas/User"
+                    }
+                },
+                "type": "object"
+            },
+            "Thread": {
+                "description": "Represents an Thread with Posts and the creator",
+                "properties": {
+                    "title": {
+                        "type": "string",
+                        "example": "Fresh news about something"
+                    },
+                    "slug": {
+                        "type": "string",
+                        "example": "fresh-news-about-something"
+                    },
+                    "content": {
+                        "type": "string",
+                        "example": "Lorem ipsum dolor sit amet."
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "1972-01-01 12:34:56"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "1972-01-01 12:34:56"
+                    },
+                    "user": {
+                        "$ref": "#/components/schemas/User"
+                    },
+                    "posts": {
+                        "$ref": "#/components/schemas/Post"
+                    }
+                },
+                "type": "object"
+            },
+            "User": {
+                "description": "Represents an User with some statistic",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "example": "Hans Wurst"
+                    },
+                    "email": {
+                        "type": "string",
+                        "example": "hans@wurst.org"
+                    },
+                    "verified": {
+                        "type": "boolean",
+                        "example": true
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "1972-01-01 12:34:56"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "1972-01-01 12:34:56"
+                    },
+                    "threadCount": {
+                        "type": "integer",
+                        "example": 13
+                    },
+                    "postCount": {
+                        "type": "integer",
+                        "example": 17
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "responses": {
+            "404": {
+                "$ref": "#/components/schemas/Error"
+            },
+            "500": {
+                "$ref": "#/components/schemas/Error"
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "name": "Authorization",
+                "in": "header",
+                "scheme": "bearer"
             }
         }
     }

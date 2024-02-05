@@ -2,20 +2,22 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Requests\Api\v1\StoreThreadRequest;
+use App\Http\Requests\Api\V1\StoreThreadRequest;
 use App\Http\Resources\ThreadResource;
 use App\Models\Thread;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use OpenApi\Attributes as OA;
+use Symfony\Component\HttpFoundation\Response;
 
 class ThreadController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of Threads.
      */
     #[OA\Get(
         path: '/api/v1/threads',
+        security: [['bearerAuth' => []]],
         parameters: [
             new OA\Parameter(
                 name: 'page',
@@ -25,8 +27,24 @@ class ThreadController extends Controller
         ],
         responses: [
             new OA\Response(
-                response: '200',
+                response: Response::HTTP_OK,
                 description: 'Returns paginated list of Threads',
+                content: new OA\JsonContent(),
+            ),
+            new OA\Response(
+                response: Response::HTTP_UNAUTHORIZED,
+                description: 'Unauthorized',
+                content: new OA\JsonContent(),
+            ),
+            new OA\Response(
+                response: Response::HTTP_NOT_FOUND,
+                description: 'not found',
+                content: new OA\JsonContent(),
+            ),
+            new OA\Response(
+                response: Response::HTTP_INTERNAL_SERVER_ERROR,
+                description: 'Server Error',
+                content: new OA\JsonContent(),
             ),
         ],
     )]
@@ -43,32 +61,46 @@ class ThreadController extends Controller
     #[OA\Post(
         path: '/api/v1/threads',
         summary: 'Creates an new Thread and returns it.',
+        security: [['bearerAuth' => []]],
         requestBody: new OA\RequestBody(
             required: true,
-            content: new OA\MediaType(
-                mediaType: 'application/x-www-form-urlencode',
-                schema: new OA\Schema(
-                    required: ['title', 'content'],
-                    properties: [
-                        new OA\Property(
-                            property: 'title',
-                            type: 'string',
-                            example: 'Hans wurst isst ein Ei!',
-                        ),
-                        new OA\Property(
-                            property: 'content',
-                            type: 'string',
-                            example: 'Lorem ipsum dolor sit amet.',
-                        ),
+            content: new OA\JsonContent(
+                required: ['title', 'content'],
+                properties: [
+                    new OA\Property(
+                        property: 'title',
+                        type: 'string',
+                        example: 'Hans wurst isst ein Ei!',
+                    ),
+                    new OA\Property(
+                        property: 'content',
+                        type: 'string',
+                        example: 'Lorem ipsum dolor sit amet.',
+                    ),
 
-                    ],
-                ),
+                ],
             ),
         ),
         responses: [
             new OA\Response(
-                response: '200',
+                response: Response::HTTP_OK,
                 description: 'Returns created Thread.',
+                content: new OA\JsonContent(),
+            ),
+            new OA\Response(
+                response: Response::HTTP_UNAUTHORIZED,
+                description: 'Unauthorized',
+                content: new OA\JsonContent(),
+            ),
+            new OA\Response(
+                response: Response::HTTP_NOT_FOUND,
+                description: 'not found',
+                content: new OA\JsonContent(),
+            ),
+            new OA\Response(
+                response: Response::HTTP_INTERNAL_SERVER_ERROR,
+                description: 'Server Error',
+                content: new OA\JsonContent(),
             ),
         ],
     )]
