@@ -23,9 +23,6 @@ Route::prefix('v1')
         Route::post('auth', [AuthController::class, 'create'])
             ->name('auth');
 
-        Route::post('auth', [AuthController::class, 'create'])
-            ->name('auth');
-
         Route::middleware('auth:sanctum')
             ->group(function() {
 
