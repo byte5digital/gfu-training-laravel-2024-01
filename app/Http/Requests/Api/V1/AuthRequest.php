@@ -2,10 +2,13 @@
 
 namespace App\Http\Requests\Api\V1;
 
+use App\Http\Requests\Traits\IsAuthRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
 class AuthRequest extends FormRequest
 {
+    use IsAuthRequest;
+
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -14,21 +17,4 @@ class AuthRequest extends FormRequest
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
-    public function rules(): array
-    {
-        return [
-            'email' => [
-                'required',
-                'email',
-            ],
-            'password' => [
-                'required',
-            ],
-        ];
-    }
 }

@@ -3,7 +3,6 @@
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\ThreadController;
 use App\Http\Controllers\Api\V1\UserController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,12 +23,8 @@ Route::prefix('v1')
         Route::post('auth', [AuthController::class, 'create'])
             ->name('auth');
 
-        Route::get('user', function (Request $request) {
-
-            dd($request);
-
-            return $request->user();
-        })->name('user');
+        Route::post('auth', [AuthController::class, 'create'])
+            ->name('auth');
 
         Route::middleware('auth:sanctum')
             ->group(function() {
@@ -37,6 +32,6 @@ Route::prefix('v1')
                 Route::apiResource('users', UserController::class);
                 Route::apiResource('threads', ThreadController::class);
 
-            });
+        });
 
-    });
+});

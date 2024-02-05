@@ -11,31 +11,38 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\Response;
-
+use App\Models\User;
 
 class AuthController extends Controller
 {
     /**
-     * @param AuthRequest $request
-     * @return mixed
+     * @return JsonResponse
      */
     #[OA\Post(
-        path: "/api/v1/auth",
+        path: '/api/v1/auth',
         requestBody: new OA\RequestBody(
-            description: "The Token Request",
+            description: 'The Token request',
             required: true,
             content: new OA\JsonContent(
                 properties: [
-                    new OA\Property(property: "email", type: "string", example: "your@email.com"),
-                    new OA\Property(property: "password", type: "string", example: "YOUR_PASSWORD"),
-                ]
-            )
+                    new OA\Property(
+                        property: 'email',
+                        type: 'string',
+                        example: 'john@doe.com',
+                    ),
+                    new OA\Property(
+                        property: 'password',
+                        type: 'string',
+                        example: 'YourSecret',
+                    )
+                ],
+            ),
         ),
         responses: [
             new OA\Response(
-                response: "200",
-                description: "The created PersonalAccessToken",
-            ),
+                response: 200,
+                description: 'The created PersonalAccessToken.'
+            )
         ],
     )]
     public function create(AuthRequest $request): JsonResponse

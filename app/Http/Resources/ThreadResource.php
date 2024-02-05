@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Board;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -36,6 +37,7 @@ class ThreadResource extends JsonResource
             'created_at'    => $this->created_at->format('Y-m-d H:i:s'),
             'updated_at'    => $this->updated_at?->format('Y-m-d H:i:s'),
             'user'          => new UserResource(User::find($this->user_id)),
+            'board'         => Board::find($this->board_id)->name,
             'posts'         => PostResource::collection($this->resource->posts),
         ];
     }

@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Requests\Api\V1\StoreThreadRequest;
 use App\Http\Resources\ThreadResource;
+use App\Models\Board;
 use App\Models\Thread;
+use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use OpenApi\Attributes as OA;
@@ -77,7 +79,11 @@ class ThreadController extends Controller
                         type: 'string',
                         example: 'Lorem ipsum dolor sit amet.',
                     ),
-
+                    new OA\Property(
+                        property: 'board_id',
+                        type: 'integer',
+                        example: 4,
+                    ),
                 ],
             ),
         ),
@@ -106,8 +112,12 @@ class ThreadController extends Controller
     )]
     public function store(StoreThreadRequest $request): JsonResponse
     {
-        #dd($request->input());
         $thread = new Thread($request->validated());
+        $thread->user()->associate(auth()->user() ?? 1);
+        $thread->board()->associate(Board::find($request->validated('board_id')));
+
+        $thread->save();
+
         return (new ThreadResource($thread))
             ->response();
     }
